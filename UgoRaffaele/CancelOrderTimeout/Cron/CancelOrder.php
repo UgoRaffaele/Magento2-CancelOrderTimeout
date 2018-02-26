@@ -11,7 +11,6 @@ class CancelOrder {
 	protected $logger;
 	
 	public function __construct(
-		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
 		\Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
 		\Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -19,7 +18,6 @@ class CancelOrder {
 		\Magento\Framework\Stdlib\DateTime\DateTime $date,
 		\Psr\Log\LoggerInterface $logger
     ){
-		parent::__construct($context);
 		$this->scopeConfig = $scopeConfig;
 		$$this->orderRepository = $orderRepository;
 		$this->searchCriteriaBuilder = $searchCriteriaBuilder;
