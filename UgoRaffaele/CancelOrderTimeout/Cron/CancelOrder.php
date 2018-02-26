@@ -19,7 +19,7 @@ class CancelOrder {
 		\Psr\Log\LoggerInterface $logger
     ){
 		$this->scopeConfig = $scopeConfig;
-		$$this->orderRepository = $orderRepository;
+		$this->orderRepository = $orderRepository;
 		$this->searchCriteriaBuilder = $searchCriteriaBuilder;
 		$this->orderManagement = $orderManagement;
 		$this->date = $date;
