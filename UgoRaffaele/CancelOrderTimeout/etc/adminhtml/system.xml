@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ugoraffaele" translate="label" sortOrder="100">
+            <label>UgoRaffaele</label>
+        </tab>
+        <section id="cancelordertimeout" translate="label" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+			<label>Cancel Order Timeout</label>
+			<tab>ugoraffaele</tab>
+			<resource>UgoRaffaele_CancelOrderTimeout::general</resource>
+            <group id="general" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="timeout" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Timeout (min)</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
