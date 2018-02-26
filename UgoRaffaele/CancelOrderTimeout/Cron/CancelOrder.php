@@ -44,7 +44,7 @@ class CancelOrder {
 		if ($this->isModuleEnabled()) {
 			
 			$agoDate = $this->date->gmtDate(null, strtotime("-{$this->getTimeout()} minutes"));
-			$this->logger->info('Checking orders older than {$agoDate}');
+			$this->logger->info("Checking orders older than {$agoDate}");
 			
 			$searchCriteria = $this->searchCriteriaBuilder
 				->addFilter('created_at', $agoDate, 'gt')
@@ -53,7 +53,7 @@ class CancelOrder {
 			$orders = $this->orderRepository->getList($searchCriteria);
 		
 			foreach ($orders->getItems() as $order) {
-				$this->logger->info('Cancelling Order # {$order->getEntityId()}');
+				$this->logger->info("Cancelling Order # {$order->getEntityId()}");
 				$this->orderManagement->cancel($order->getEntityId());
 			};
 			
