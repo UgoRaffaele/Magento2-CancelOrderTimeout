@@ -47,14 +47,22 @@ class CancelOrder {
 			$this->logger->info("Checking orders older than {$agoDate}");
 			
 			$searchCriteria = $this->searchCriteriaBuilder
-				->addFilter('created_at', $agoDate, 'gt')
+				->addFilter('created_at', $agoDate, 'lt')
 				->addFilter('status', 'pending', 'eq')
 				->create();
 			$orders = $this->orderRepository->getList($searchCriteria);
 		
 			foreach ($orders->getItems() as $order) {
+				
+				$payment = $order->getPayment();
+				$method = $payment->getMethodInstance();
+				$methodCode = $method->getCode();
+				
+				// TO-DO: COMPARE CODE
+				
 				$this->logger->info("Cancelling Order # {$order->getEntityId()}");
 				$this->orderManagement->cancel($order->getEntityId());
+				
 			};
 			
 		}
