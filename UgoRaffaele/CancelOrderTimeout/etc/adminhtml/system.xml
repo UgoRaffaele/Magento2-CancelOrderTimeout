@@ -18,6 +18,10 @@
                 <field id="timeout" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Timeout (min)</label>
                 </field>
+                <field id="payment_methods" translate="label" type="multiselect" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment methods</label>
+					<source_model>UgoRaffaele\CancelOrderTimeout\Model\System\Config\Source\PaymentMethods</source_model>
+                </field>
             </group>
         </section>
     </system>
