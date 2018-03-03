@@ -38,13 +38,21 @@ class CancelOrder {
 		return intval($timeout);
 	}
 	
+	public function getPaymentMethods()
+	{
+		$paymentMethods = $this->scopeConfig->getValue('cancelordertimeout/general/payment_methods', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+		return $paymentMethods;
+	}
+	
 	public function execute()
 	{
 		
 		if ($this->isModuleEnabled()) {
 			
+			$methods = $this->getPaymentMethods();
+			$methods = explode(',', $methods);
+			
 			$agoDate = $this->date->gmtDate(null, strtotime("-{$this->getTimeout()} minutes"));
-			$this->logger->info("Checking orders older than {$agoDate}");
 			
 			$searchCriteria = $this->searchCriteriaBuilder
 				->addFilter('created_at', $agoDate, 'lt')
@@ -54,14 +62,13 @@ class CancelOrder {
 		
 			foreach ($orders->getItems() as $order) {
 				
-				$payment = $order->getPayment();
-				$method = $payment->getMethodInstance();
-				$methodCode = $method->getCode();
+				$paymentMethod = $order->getPayment()->getMethodInstance()->getCode();
 				
 				// TO-DO: COMPARE CODE
-				
-				$this->logger->info("Cancelling Order # {$order->getEntityId()}");
-				$this->orderManagement->cancel($order->getEntityId());
+				if (in_array($paymentMethod, $methods)) {
+					$this->logger->info("Cancelling Order # {$order->getEntityId()}");
+					$this->orderManagement->cancel($order->getEntityId());
+				}
 				
 			};
 			
