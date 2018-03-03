@@ -63,8 +63,7 @@ class CancelOrder {
 			foreach ($orders->getItems() as $order) {
 				
 				$paymentMethod = $order->getPayment()->getMethodInstance()->getCode();
-				
-				// TO-DO: COMPARE CODE
+
 				if (in_array($paymentMethod, $methods)) {
 					$this->logger->info("Cancelling Order # {$order->getEntityId()}");
 					$this->orderManagement->cancel($order->getEntityId());
